@@ -1,9 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
-const tools = [
-  { icon: "{ }", title: "JSON Formatter", description: "Làm đẹp, kiểm tra và thu gọn JSON chỉ trong một nhịp.", category: "Dữ liệu", tone: "lime", ready: true },
+const tools: { icon: string; title: string; description: string; category: string; tone: string; ready: boolean; href?: string }[] = [
+  { icon: "{ }", title: "JSON Formatter", description: "Làm đẹp, kiểm tra và thu gọn JSON chỉ trong một nhịp.", category: "Dữ liệu", tone: "lime", ready: true, href: "/tools/json-formatter" },
   { icon: "Aa", title: "Text Transformer", description: "Đổi kiểu chữ, loại khoảng trắng và chuẩn hoá văn bản.", category: "Văn bản", tone: "coral", ready: true },
   { icon: "#", title: "Hash Generator", description: "Tạo nhanh MD5, SHA-1 và SHA-256 ngay trên trình duyệt.", category: "Bảo mật", tone: "violet", ready: false },
   { icon: "↔", title: "Base64 Converter", description: "Mã hoá và giải mã Base64 mà không cần rời khỏi trang.", category: "Chuyển đổi", tone: "blue", ready: false },
@@ -97,20 +98,27 @@ export default function Home() {
         </div>
 
         <div className="tool-grid" aria-live="polite">
-          {filteredTools.map((tool, index) => (
-            <article className={`tool-card ${tool.tone}`} key={tool.title} style={{ "--delay": `${index * 55}ms` } as React.CSSProperties}>
-              <div className="card-meta">
-                <span className="tool-icon" aria-hidden="true">{tool.icon}</span>
-                <span className={tool.ready ? "status ready" : "status"}>{tool.ready ? "Sẵn sàng" : "Sắp ra mắt"}</span>
-              </div>
-              <h3>{tool.title}</h3>
-              <p>{tool.description}</p>
-              <div className="card-footer">
-                <span>{tool.category}</span>
-                <span className="card-arrow" aria-hidden="true">↗</span>
-              </div>
-            </article>
-          ))}
+          {filteredTools.map((tool, index) => {
+            const className = `tool-card ${tool.tone}`;
+            const style = { "--delay": `${index * 55}ms` } as React.CSSProperties;
+            const body = (
+              <>
+                <div className="card-meta">
+                  <span className="tool-icon" aria-hidden="true">{tool.icon}</span>
+                  <span className={tool.ready ? "status ready" : "status"}>{tool.ready ? "Sẵn sàng" : "Sắp ra mắt"}</span>
+                </div>
+                <h3>{tool.title}</h3>
+                <p>{tool.description}</p>
+                <div className="card-footer">
+                  <span>{tool.category}</span>
+                  <span className="card-arrow" aria-hidden="true">↗</span>
+                </div>
+              </>
+            );
+            return tool.href
+              ? <Link className={className} key={tool.title} href={tool.href} style={style}>{body}</Link>
+              : <article className={className} key={tool.title} style={style}>{body}</article>;
+          })}
         </div>
         {filteredTools.length === 0 && (
           <div className="empty-state">
