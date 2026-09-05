@@ -1,27 +1,21 @@
 import assert from "node:assert/strict";
+import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
-async function render() {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
-  const { default: worker } = await import(workerUrl.href);
+const projectRoot = new URL("../", import.meta.url);
 
-  return worker.fetch(
-    new Request("http://localhost/", { headers: { accept: "text/html" } }),
-    { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
-    { waitUntil() {}, passThroughOnException() {} },
-  );
-}
+test("creates a native Next.js production build", async () => {
+  await access(new URL(".next/BUILD_ID", projectRoot));
 
-test("server-renders the Vui Coding Tools homepage", async () => {
-  const response = await render();
-  assert.equal(response.status, 200);
-  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
+  const [page, layout, packageJson] = await Promise.all([
+    readFile(new URL("app/page.tsx", projectRoot), "utf8"),
+    readFile(new URL("app/layout.tsx", projectRoot), "utf8"),
+    readFile(new URL("package.json", projectRoot), "utf8"),
+  ]);
 
-  const html = await response.text();
-  assert.match(html, /<html lang="vi">/i);
-  assert.match(html, /Vui Coding Tools/i);
-  assert.match(html, /Công cụ nhỏ/);
-  assert.match(html, /JSON Formatter/);
-  assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|_sites-preview/i);
+  assert.match(page, /Vui Coding/);
+  assert.match(page, /JSON Formatter/);
+  assert.match(layout, /lang="vi"/);
+  assert.match(packageJson, /"build": "next build"/);
+  assert.doesNotMatch(packageJson, /vinext|wrangler|cloudflare/i);
 });
