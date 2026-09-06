@@ -5,11 +5,11 @@ import { useMemo, useState } from "react";
 
 const tools: { icon: string; title: string; description: string; category: string; tone: string; ready: boolean; href?: string }[] = [
   { icon: "{ }", title: "JSON Formatter", description: "Làm đẹp, kiểm tra và thu gọn JSON chỉ trong một nhịp.", category: "Dữ liệu", tone: "lime", ready: true, href: "/tools/json-formatter" },
-  { icon: "Aa", title: "Text Transformer", description: "Đổi kiểu chữ, loại khoảng trắng và chuẩn hoá văn bản.", category: "Văn bản", tone: "coral", ready: true },
-  { icon: "#", title: "Hash Generator", description: "Tạo nhanh MD5, SHA-1 và SHA-256 ngay trên trình duyệt.", category: "Bảo mật", tone: "violet", ready: false },
-  { icon: "↔", title: "Base64 Converter", description: "Mã hoá và giải mã Base64 mà không cần rời khỏi trang.", category: "Chuyển đổi", tone: "blue", ready: false },
-  { icon: "//", title: "Regex Playground", description: "Thử biểu thức chính quy với kết quả được tô sáng tức thì.", category: "Lập trình", tone: "yellow", ready: false },
-  { icon: "⌁", title: "URL Toolkit", description: "Phân tích, mã hoá và dựng lại URL thật dễ dàng.", category: "Web", tone: "pink", ready: false },
+  { icon: "Aa", title: "Text Transformer", description: "Đổi kiểu chữ, loại khoảng trắng và chuẩn hoá văn bản.", category: "Văn bản", tone: "coral", ready: true, href: "/tools/text-transformer" },
+  { icon: "#", title: "Hash Generator", description: "Tạo nhanh MD5, SHA-1, SHA-256 và SHA-512 ngay trên trình duyệt.", category: "Bảo mật", tone: "violet", ready: true, href: "/tools/hash-generator" },
+  { icon: "↔", title: "Base64 Converter", description: "Mã hoá và giải mã Base64 mà không cần rời khỏi trang.", category: "Chuyển đổi", tone: "blue", ready: true, href: "/tools/base64-converter" },
+  { icon: "//", title: "Regex Playground", description: "Thử biểu thức chính quy với kết quả được tô sáng tức thì.", category: "Lập trình", tone: "yellow", ready: true, href: "/tools/regex-playground" },
+  { icon: "⌁", title: "URL Toolkit", description: "Phân tích, mã hoá và dựng lại URL thật dễ dàng.", category: "Web", tone: "pink", ready: true, href: "/tools/url-toolkit" },
 ];
 
 const categories = ["Tất cả", "Dữ liệu", "Văn bản", "Bảo mật", "Chuyển đổi", "Lập trình", "Web"];

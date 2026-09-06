@@ -132,6 +132,14 @@ footer>span { text-align:right; }
 .copy-button { padding:6px 10px; border:1.5px solid var(--ink); border-radius:6px; background:white; font:600 10px var(--font-mono),monospace; cursor:pointer; }
 .copy-button:disabled { border-color:var(--line); color:#9aa39d; cursor:not-allowed; }
 
+.formatter-note { margin:16px 0 0; color:#657068; font:11px var(--font-mono),monospace; letter-spacing:.04em; }
+.formatter-fields { display:grid; grid-template-columns:1fr 160px; gap:12px; margin-bottom:18px; }
+.field { display:flex; flex-direction:column; gap:9px; min-width:0; }
+.field>span { color:#657068; font:600 10px var(--font-mono),monospace; text-transform:uppercase; letter-spacing:.08em; }
+.field input { padding:14px 16px; border:2px solid var(--ink); border-radius:10px; background:white; color:var(--ink); font:13px var(--font-mono),monospace; outline:0; }
+.field input:focus { box-shadow:4px 4px 0 var(--lime); }
+.formatter-panel pre mark { padding:1px 2px; border-radius:3px; background:var(--lime); color:var(--ink); }
+
 @media (max-width:900px) {
   .site-header nav { display:none; }
   .formatter-grid { grid-template-columns:1fr; }
@@ -149,6 +157,7 @@ footer>span { text-align:right; }
   .site-header { width:min(100% - 32px,1180px); height:76px; }
   .tool-page { width:min(100% - 32px,1180px); padding-top:40px; }
   .formatter-actions button { flex:1 1 auto; justify-content:center; }
+  .formatter-fields { grid-template-columns:1fr; }
   .brand { font-size:14px; }
   .brand-mark { width:34px; height:34px; }
   .header-cta { padding:11px 13px; font-size:0; gap:0; }
